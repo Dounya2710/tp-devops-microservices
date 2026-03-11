@@ -17,9 +17,10 @@ jobs:
       - name: Setup Java 21
         uses: actions/setup-java@v4
         with:
-          distribution: temurin
+          distribution: 'temurin'
           java-version: '21'
 
+      # Build Maven projects
       - name: Build Catalogue Service
         run: |
           cd catalogue-service
@@ -49,3 +50,34 @@ jobs:
         run: |
           cd discovery-service
           mvn clean install
+
+      # Docker images
+      - name: Build Docker image catalogue-service
+        run: |
+          cd catalogue-service
+          docker build -t catalogue-service .
+
+      - name: Build Docker image commande-service
+        run: |
+          cd commande-service
+          docker build -t commande-service .
+
+      - name: Build Docker image paiement-service
+        run: |
+          cd paiement-service
+          docker build -t paiement-service .
+
+      - name: Build Docker image gateway-service
+        run: |
+          cd gateway-service
+          docker build -t gateway-service .
+
+      - name: Build Docker image config-service
+        run: |
+          cd config-service
+          docker build -t config-service .
+
+      - name: Build Docker image discovery-service
+        run: |
+          cd discovery-service
+          docker build -t discovery-service .
