@@ -81,3 +81,11 @@ jobs:
         run: |
           cd discovery-service
           docker build -t discovery-service .
+
+      - name: Test Docker image discovery-service
+        run: |
+          docker run -d -p 8761:8761 --name discovery-test discovery-service
+          sleep 20
+          docker ps
+          docker stop discovery-test
+
